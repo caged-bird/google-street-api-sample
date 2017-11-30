@@ -1,5 +1,6 @@
 images/
-yamanote/
 sample_image/
 ref_image/
 .DS_Store
+*.pyc
+const.py
