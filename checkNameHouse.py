@@ -6,7 +6,7 @@ import cv2
 import sys
 
 img_path = "ref_image/namehouse.jpg"
-img_path2 = "sample_image/"
+img_path2 = "sample_image/namesample.jpg"
 
 img = cv2.imread(img_path)
 img2 = cv2.imread(img_path2)
