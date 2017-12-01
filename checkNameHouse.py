@@ -10,18 +10,18 @@ import requests
 import json
 from const import get_slack_key
 
-img_paths = glob.glob("search_image/*")
-
 THRESHOLD = 0.8
-img_path = "ref_image/namehouse.jpg"
-img_path2 = "sample_image/namesample.jpg"
+DIR = "search_image/"
+
+img_paths = glob.glob(DIR+"*")
+IMG_PATH = "ref_image/namehouse.jpg"
 
 score_lists = []
 max_score = 0
 max_list = []
 
 for img_path2 in img_paths:
-  img1 = cv2.imread(img_path)
+  img1 = cv2.imread(IMG_PATH)
   img2 = cv2.imread(img_path2)
 
   # 特徴量記述
@@ -43,7 +43,7 @@ for img_path2 in img_paths:
     if m.distance < THRESHOLD * n.distance:
       good_score.append([m])
   
-  filename = img_path2.replace("search_images/", "")  
+  filename = img_path2.replace(DIR, "")  
   c_score = len(good_score)
 
   score_list = []
