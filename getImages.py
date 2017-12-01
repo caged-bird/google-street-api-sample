@@ -27,6 +27,7 @@ while lati < TARGET.upright[0]:
                 file_name = './images/' + ','.join([str(loc[0]), str(loc[1])]) + "," + str(heading) + '.jpg'
                 with open(file_name, 'wb') as out_file:
                     shutil.copyfileobj(response.raw, out_file)
+                print(file_name)
             elif response.json()["status"] in "OVER_QUERY_LIMIT":
                 print("over_query_limit")
                 url = "https://hooks.slack.com/services/" + KEY_SLACK
@@ -38,6 +39,8 @@ while lati < TARGET.upright[0]:
                     }]
                 }))
                 break
+            else:
+                print("no iamge")
             time.sleep(0.5)
         longi += LONG_UNIT
     lati += LAT_UNIT
