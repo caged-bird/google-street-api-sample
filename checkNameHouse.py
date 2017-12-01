@@ -9,14 +9,15 @@ import csv
 import requests
 import json
 import shutil
-from api_keys import KEY_SLACK
 
-THRESHOLD = 0.8
-SEARCH_DIR = "search_images/"
-LIKELI_DIR = "likelihood/"
+from constants.api_keys import KEY_SLACK
+from constants.learning_meta import SEARCH_DIR
+from constants.learning_meta import LIKELI_DIR
+from constants.learning_meta import IMG_PATH
+
+from constants.learning_meta import THRESHOLD
 
 img_paths = glob.glob(SEARCH_DIR+"*")
-IMG_PATH = "ref_image/namehouse.jpg"
 
 score_lists = []
 

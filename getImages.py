@@ -3,11 +3,11 @@ import time
 import shutil
 import requests
 import json
-from api_keys import KEY_SLACK
-from api_keys import KEY_STREET
-from geo_info import LAT_UNIT
-from geo_info import LONG_UNIT
-from geo_info import TARGET
+from constants.api_keys import KEY_SLACK
+from constants.api_keys import KEY_STREET
+from constants.geo_info import LAT_UNIT
+from constants.geo_info import LONG_UNIT
+from constants.geo_info import TARGET
 
 SIZE = '640x600'
 headings = [0.0, 90.0, 180.0, 270.0]
