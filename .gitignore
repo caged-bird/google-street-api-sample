@@ -1,5 +1,7 @@
 images/
-sample_image/
+search_image/
+search_images/
+likelihood/
 ref_image/
 .DS_Store
 *.pyc
