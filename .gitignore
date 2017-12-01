@@ -3,4 +3,5 @@ sample_image/
 ref_image/
 .DS_Store
 *.pyc
+*.swp
 const.py
