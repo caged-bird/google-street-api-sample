@@ -7,3 +7,4 @@ ref_image/
 *.pyc
 *.swp
 const.py
+.idea/
