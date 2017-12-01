@@ -8,7 +8,7 @@ sample_image/
 .DS_Store
 *.pyc
 *.swp
-constants/
+constants/*
 api_keys.py
 geo_info.py
 const.py
