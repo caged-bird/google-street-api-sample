@@ -8,18 +8,17 @@ import glob
 import csv
 import requests
 import json
-from const import get_slack_key
+import shutil
+from api_keys import KEY_SLACK
 
 THRESHOLD = 0.8
-SEARCH_DIR = "search_image/"
+SEARCH_DIR = "search_images/"
 LIKELI_DIR = "likelihood/"
 
-img_paths = glob.glob(DIR+"*")
+img_paths = glob.glob(SEARCH_DIR+"*")
 IMG_PATH = "ref_image/namehouse.jpg"
 
 score_lists = []
-max_score = 0
-max_list = []
 
 for img_path2 in img_paths:
   img1 = cv2.imread(IMG_PATH)
@@ -36,7 +35,6 @@ for img_path2 in img_paths:
   #bf = cv2.BFMatcher()
   
   # 画像への特徴点の書き込み
-  #matches = bf.match(des1, des2)
   matches = bf.knnMatch(des1, des2, k=2)
   
   good_score = []
@@ -44,7 +42,7 @@ for img_path2 in img_paths:
     if m.distance < THRESHOLD * n.distance:
       good_score.append([m])
   
-  filename = img_path2.replace(DIR, "")  
+  filename = img_path2.replace(SEARCH_DIR, "")  
   c_score = len(good_score)
 
   score_list = []
@@ -52,19 +50,22 @@ for img_path2 in img_paths:
   score_list.append(c_score)
   score_lists.append(score_list)
 
-  if c_score > max_score:
-    max_score = c_score
-    max_list = [filename, max_score]
-
 result_csv = open("result.csv", "a")
 writer = csv.writer(result_csv, lineterminator="\n")
 writer.writerows(score_lists)
 
-url = "https://hooks.slack.com/services/" + get_slack_key()
+sorted_list = sorted(score_lists, key=lambda x:x[1], reverse=True)
+extracted_range = int(len(img_paths)/10)
+
+for candidates in sorted_list[:extracted_range]:
+    print(SEARCH_DIR+candidates[0])
+    shutil.copy(SEARCH_DIR+candidates[0],LIKELI_DIR+candidates[0])
+
+url = "https://hooks.slack.com/services/" + KEY_SLACK
 requests.post(url, data=json.dumps({
     'username': "endnotifier",
     'link_names': 1,
     'attachments': [{
-        "text": u"最大値は"+max_list[0]+"の"+str(max_list[1])+"デス^^)",
+        "text": u"最大値は"+sorted_list[0][0]+"の"+str(sorted_list[0][1])+"デス^^)",
     }]
 }))

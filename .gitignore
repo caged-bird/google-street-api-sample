@@ -10,3 +10,4 @@ sample_image/
 *.swp
 api_keys.py
 geo_info.py
+const.py
