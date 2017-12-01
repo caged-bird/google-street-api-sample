@@ -12,4 +12,5 @@ constants/*
 api_keys.py
 geo_info.py
 const.py
+results.csv
 !constants/learning_meta.py
