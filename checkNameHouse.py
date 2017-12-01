@@ -11,7 +11,8 @@ import json
 from const import get_slack_key
 
 THRESHOLD = 0.8
-DIR = "search_image/"
+SEARCH_DIR = "search_image/"
+LIKELI_DIR = "likelihood/"
 
 img_paths = glob.glob(DIR+"*")
 IMG_PATH = "ref_image/namehouse.jpg"
