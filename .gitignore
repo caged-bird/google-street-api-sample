@@ -1,9 +1,12 @@
 images/
 search_image/
 search_images/
+.idea/
 likelihood/
 ref_image/
+sample_image/
 .DS_Store
 *.pyc
 *.swp
-const.py
+api_keys.py
+geo_info.py
