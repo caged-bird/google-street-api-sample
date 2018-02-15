@@ -32,6 +32,7 @@ while lati < TARGET.upright[0]:
     longi = TARGET.bottomleft[1]
     while longi < TARGET.upright[1]:
         for heading in headings:
+            isHalt = True
             loc = [lati, longi]
             meta_url = 'https://maps.googleapis.com/maps/api/streetview/metadata?size='+str(SIZE)+"&location="+','.join([str(loc[0]), str(loc[1])])+"&heading="+str(heading)+"&pitch=" + str(PITCH) + "&fov=" + str(FOV) + "&zoom=1&key=" + KEY_STREET
             response = requests.get(meta_url, stream=True)
