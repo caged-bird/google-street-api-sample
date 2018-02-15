@@ -26,6 +26,8 @@ parser.add_argument("out",
 args = parser.parse_args()
 dir_path = args.out
 
+isHalt = False
+
 while lati < TARGET.upright[0]:
     longi = TARGET.bottomleft[1]
     while longi < TARGET.upright[1]:
@@ -50,11 +52,14 @@ while lati < TARGET.upright[0]:
                         "text": u"上限超えました",
                     }]
                 }))
-                break
+                isHalt = True
+                time.sleep(3600)
             else:
                 print("no iamge")
-        longi += LONG_UNIT
-    lati += LAT_UNIT
+        if isHalt:
+            longi += LONG_UNIT
+    if isHalt:
+        lati += LAT_UNIT
 
 url = "https://hooks.slack.com/services/" + KEY_SLACK
 requests.post(url, data=json.dumps({

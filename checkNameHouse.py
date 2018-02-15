@@ -51,9 +51,9 @@ for img_path2 in img_paths:
   score_list.append(c_score)
   score_lists.append(score_list)
 
-result_csv = open("result.csv", "a")
-writer = csv.writer(result_csv, lineterminator="\n")
-writer.writerows(score_lists)
+#result_csv = open("result.csv", "a")
+#writer = csv.writer(result_csv, lineterminator="\n")
+#writer.writerows(score_lists)
 
 sorted_list = sorted(score_lists, key=lambda x:x[1], reverse=True)
 extracted_range = int(len(img_paths)/10)
