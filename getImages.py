@@ -39,22 +39,24 @@ while lati < TARGET.upright[0]:
             if response.json()["status"] in "OK":
                 url = "https://maps.googleapis.com/maps/api/streetview?size="+str(SIZE)+"&location="+','.join([str(loc[0]), str(loc[1])])+"&heading="+str(heading)+"&pitch=" + str(PITCH) + "&fov=" + str(FOV) + "&zoom=1&key=" + KEY_STREET
                 response = requests.get(url, stream=True)
-                file_name = dir_path + ','.join([str(loc[0]), str(loc[1])]) + "," + str(heading) + '.jpg'
-                with open(file_name, 'wb') as out_file:
-                    shutil.copyfileobj(response.raw, out_file)
-                print(file_name)
-            elif response.json()["status"] in "OVER_QUERY_LIMIT":
-                print("over_query_limit")
-                url = "https://hooks.slack.com/services/" + KEY_SLACK
-                requests.post(url, data=json.dumps({
-                    'username': "endnotifier",
-                    'link_names': 1,
-                    'attachments': [{
-                        "text": u"上限超えました",
-                    }]
-                }))
-                isHalt = True
-                time.sleep(3600)
+
+                if response.json()["status"] in "OK":
+                    file_name = dir_path + ','.join([str(loc[0]), str(loc[1])]) + "," + str(heading) + '.jpg'
+                    with open(file_name, 'wb') as out_file:
+                        shutil.copyfileobj(response.raw, out_file)
+                    print(file_name)
+                elif response.json()["status"] in "OVER_QUERY_LIMIT":
+                    print("over_query_limit")
+                    url = "https://hooks.slack.com/services/" + KEY_SLACK
+                    requests.post(url, data=json.dumps({
+                        'username': "endnotifier",
+                        'link_names': 1,
+                        'attachments': [{
+                            "text": u"上限超えました",
+                        }]
+                    }))
+                    isHalt = True
+                    time.sleep(3600)
             else:
                 print("no iamge")
         if isHalt:
