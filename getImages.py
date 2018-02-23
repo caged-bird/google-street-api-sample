@@ -36,6 +36,9 @@ while lati < TARGET.upright[0]:
             loc = [lati, longi]
             meta_url = 'https://maps.googleapis.com/maps/api/streetview/metadata?size='+str(SIZE)+"&location="+','.join([str(loc[0]), str(loc[1])])+"&heading="+str(heading)+"&pitch=" + str(PITCH) + "&fov=" + str(FOV) + "&zoom=1&key=" + KEY_STREET
             response = requests.get(meta_url, stream=True)
+
+            print(response.json()["status"])
+
             if response.json()["status"] in "OK":
                 url = "https://maps.googleapis.com/maps/api/streetview?size="+str(SIZE)+"&location="+','.join([str(loc[0]), str(loc[1])])+"&heading="+str(heading)+"&pitch=" + str(PITCH) + "&fov=" + str(FOV) + "&zoom=1&key=" + KEY_STREET
                 response = requests.get(url, stream=True)
@@ -47,7 +50,7 @@ while lati < TARGET.upright[0]:
             elif response.json()["status"] in ["ZERO_RESULTS", "NOT_FOUND"]:
                 print("no iamge")
             else:
-                print("over_query_limit")
+                print(response.json()["status"])
                 url = "https://hooks.slack.com/services/" + KEY_SLACK
                 requests.post(url, data=json.dumps({
                     'username': "endnotifier",
